@@ -49,6 +49,11 @@ class ParserTest extends Specification with ParserMatchers {
     "falhar em reconhecer mais de 10 cartas" in {
       linha must failOn("4C 5C 6C 7C 8D 2D 3D 4D 5D 6D 7D")
     }
+
+    "falhar com cartas repetidas entre a mao e o monte" in {
+      linha must failOn("4C 5C 6C 7C 8D 2D 3D 4C 5D 6D")
+    }
+
   }
 
 }
