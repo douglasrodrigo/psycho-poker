@@ -21,10 +21,9 @@ object Jogada extends Enumeration {
 
   def jogadaOf(cartas: List[Carta]) = (cartas, cartas.groupBy(_.numero).mapValues(_.size)) match {
     case (cartas, _) if isSequence(cartas) => if (cartas.groupBy(_.naipe).size == 1)  StraightFlush else Straight
-    case (_, grupos) if grupos.find(_._2 == 4).isDefined => FourOfAKind
-    case (_, grupos) if grupos.find(_._2 == 3).isDefined && grupos.find(_._2 == 2).isDefined => FullHouse
+    case (_, grupos) if grupos.exists(_._2 == 4) => FourOfAKind
+    case (_, grupos) if grupos.exists(_._2 == 3) => if (grupos.exists(_._2 == 2)) FullHouse else ThreeOfAKind
     case (cartas, _) if cartas.groupBy(_.naipe).size == 1 => Flush
-    case (_, grupos) if grupos.size == 3 && grupos.find(_._2 == 3).isDefined => ThreeOfAKind
     case (_, grupos) if grupos.filter(_._2 == 2).size == 2 => TwoPairs
     case (_, grupos) if grupos.size == 4 => OnePair
     case _ => HighestCard
