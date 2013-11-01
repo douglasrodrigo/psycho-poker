@@ -22,7 +22,7 @@ case class Carta(valor: String) {
 
 object Carta {
   
-  val pattern = "[A0-9TJQK][CDSH]".r
+  val pattern = "[A2-9TJQK][CDSH]".r
 
   def isValido(str: String) = pattern.unapplySeq(str).isDefined 
 }
